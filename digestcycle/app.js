@@ -19,7 +19,7 @@ function CounterController($scope){
   };
   $scope.upCounter = function(){
     $scope.counter++;
-  }
+  };
   $scope.$watch(function(){
     console.log("Digest Loop Fired!");
   })
