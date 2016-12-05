@@ -4,6 +4,9 @@
 angular.module('DIApp',[])
 .controller('DIController',DIController);
 
+//Protect function input from minification
+DIController.$inject = ['$scope','$filter'];
+
 function DIController($scope,$filter,$injector){
   $scope.name = "";
 
