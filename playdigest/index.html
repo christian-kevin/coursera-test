@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app='CounterApp'>
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>Digest Cycle</title>
+  </head>
+  <body>
+    <h1> Digest Cycle</h1>
+    <div ng-controller='CounterController'>
+      <button ng-click = "upCounter()"> Counter </button><br>
+      <!--> 2 way binding using ng-model (inputbox) <-->
+      <!--> 1 WAY binding watcher <-->
+      Counter : {{counter}}
+      <!--> 1 TIME binding watcher <-->
+      Counter : {{::counter}}
+    </div>
+
+  </body>
+</html>
