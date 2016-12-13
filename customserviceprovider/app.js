@@ -1,0 +1,79 @@
+(function(){
+'use strict';
+
+angular.module('CustomServiceApp',[])
+.controller('ShoppingListAddController',ShoppingListAddController)
+// 1 declaration used to inject into another service, 2 declaration
+//used to produce a service (name of the function)
+.provider('ShoppingListService',ShoppingListServiceProviderss)
+.config(Config);
+
+Config.$inject = ['ShoppingListServiceProvider'];
+function Config(ShoppingListServiceProvider){
+  ShoppingListServiceProvider.defaults.maxItems=2;
+}
+//Protect function input from minification
+ShoppingListAddController.$inject = ['ShoppingListService'];
+
+function ShoppingListAddController(ShoppingListService){
+  var list = this;
+
+  list.items = ShoppingListService.getItems();
+
+  list.itemName="";
+  list.itemQuantity="";
+
+  list.addItem = function(){
+    try{
+    ShoppingListService.addItem(list.itemName,list.itemQuantity);
+  } catch(error){
+    list.errorMessage = error.message;
+  }
+};
+
+  list.removeItem = function(itemIndex){
+    ShoppingListService.removeItem(itemIndex);
+  };
+};
+
+function ShoppingListService(maxItems){
+  var service = this;
+
+  //List of shopping items
+  var items = [];
+  service.addItem = function(itemName,itemQuantity){
+    if((maxItems === undefined) || (maxItems !== undefined) && (items.length<maxItems)){
+    var item = {
+      name:itemName,
+      quantity:itemQuantity
+    };
+    items.push(item);
+  }
+  else {
+    throw new Error("Max items (" + maxItems + ") reached.");
+  }};
+
+  service.removeItem = function(itemIndex){
+    items.splice(itemIndex,1);
+  }
+  service.getItems = function(){
+    return items;
+  };
+};
+
+function ShoppingListServiceProviderss(){
+  var provider = this;
+
+  provider.defaults = {
+    maxItems : 10
+  };
+
+  provider.$get = function(){
+    var shoppingList = new ShoppingListService(provider.defaults.maxItems);
+
+    return shoppingList;
+  };
+};
+
+
+})();

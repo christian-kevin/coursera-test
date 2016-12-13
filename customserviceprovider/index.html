@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app='CustomServiceApp'>
+  <head>
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>Custom Service</title>
+  </head>
+  <body>
+    <h1> CustomService Through Factory</h1>
+    <!-- List 1 :  unlimited items -->
+    <div id="list" ng-controller='ShoppingListAddController as list'>
+        <input type="text" ng-model="list.itemName" placeholder="item name">
+        <input type="text" ng-model="list.itemQuantity" placeholder="quantity">
+        <button ng-click="list.addItem();">Add Item To Shopping List</button>
+        <ol>
+          <li ng-repeat="item in list.items">
+              {{ item.quantity }} of {{ item.name }}
+              <button ng-click="list.removeItem($index);">Remove This Item</button>
+          </li>
+        </ol>
+        <!-- ng if remove the element from DOM, ng-show and hide only hides them -->
+        <div ng-if="list.errorMessage" class="error"> Error If: {{list.errorMessage}} </div>
+        <div ng-show="list.errorMessage" class="error"> Error Show: {{list.errorMessage}} </div>
+        <div ng-hide="list.errorMessage" class="error"> Error Hide: {{list.errorMessage}} </div>
+    </div>
+
+
+  </body>
+</html>
