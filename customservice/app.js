@@ -4,7 +4,10 @@
 angular.module('CustomServiceApp',[])
 .controller('ShoppingListAddController',ShoppingListAddController)
 .controller('ShoppingListShowController',ShoppingListShowController)
+// 1 declaration used to inject into another service, 2 declaration
+//used to produce a service (name of the function)
 .service('ShoppingListService',ShoppingListService);
+
 
 //Protect function input from minification
 ShoppingListAddController.$inject = ['ShoppingListService'];
